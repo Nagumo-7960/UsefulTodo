@@ -23,6 +23,15 @@ fun ToDoApp() {
                     Greeting("Android")
                 }
             }
+            // 作成画面
+            composable("create") {
+            }
+            // 詳細画面
+            composable("detail/{todoId}") {
+            }
+            // 編集画面
+            composable("edit/{todoId}") {
+            }
         }
     }
 }
