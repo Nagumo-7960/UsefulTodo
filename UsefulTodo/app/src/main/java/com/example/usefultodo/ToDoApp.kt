@@ -1,13 +1,13 @@
 package com.example.usefultodo
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.usefultodo.ui.create.CreateToDoScreen
+import com.example.usefultodo.ui.detail.ToDoDetailScreen
+import com.example.usefultodo.ui.edit.EditToDoScreen
+import com.example.usefultodo.ui.main.MainScreen
 import com.example.usefultodo.ui.theme.UsefulTodoTheme
 
 @Composable
@@ -16,21 +16,19 @@ fun ToDoApp() {
 
     UsefulTodoTheme {
         NavHost(navController = navController, startDestination = "main") {
-            // ルート名mainが指定されたときに表示するもの
             composable("main") {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+                MainScreen(navController = navController)
             }
-            // 作成画面
             composable("create") {
+                CreateToDoScreen(navController = navController)
             }
-            // 詳細画面
-            composable("detail/{todoId}") {
+            composable("detail/{todoId}") { backStackEntry ->
+                val todoId = backStackEntry.arguments?.getString("todoId")?.toInt() ?: 0
+                ToDoDetailScreen(navController = navController, todoId = todoId)
             }
-            // 編集画面
-            composable("edit/{todoId}") {
+            composable("edit/{todoId}") { backStackEntry ->
+                val todoId = backStackEntry.arguments?.getString("todoId")?.toInt() ?: 0
+                EditToDoScreen(navController = navController, todoId = todoId)
             }
         }
     }
